@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-
+import { MenuComponent } from '../menu/menu.component';
 @Component({
   selector: 'app-bosques',
-  imports: [],
+  imports: [MenuComponent],
   templateUrl: './bosques.component.html',
   styleUrl: './bosques.component.scss'
 })

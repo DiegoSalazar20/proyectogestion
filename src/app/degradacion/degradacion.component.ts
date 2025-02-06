@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-
+import { MenuComponent } from '../menu/menu.component';
 @Component({
   selector: 'app-degradacion',
-  imports: [],
+  imports: [MenuComponent],
   templateUrl: './degradacion.component.html',
   styleUrl: './degradacion.component.scss'
 })

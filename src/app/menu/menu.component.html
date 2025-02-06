@@ -1,17 +1,14 @@
 
-<head>
-    <!-- Agregar Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
-  </head>
 <header class="navbar">
     <nav class="nav-links">
       <ul>
-        <li><button class="nav-item"><i class="fas fa-seedling"></i> Ecosistemas</button></li>
-        <li><button class="nav-item"><i class="fas fa-tree"></i> Bosques</button></li>
-        <li><button class="nav-item"><i class="fas fa-sun"></i> Desertificación</button></li>
-        <li><button class="nav-item"><i class="fas fa-recycle"></i> Degradación</button></li>
-        <li><button class="nav-item"><i class="fas fa-leaf"></i> Biodiversidad</button></li>
-        <li><button class="nav-item"><i class="fas fa-book"></i> Publicaciones</button></li>
+        <li><button class="nav-item" (click)="redirigir('/principal')"><i class="fas fa-home"></i> Inicio</button></li>
+        <li><button class="nav-item" (click)="redirigir('/ecosistemas')"><i class="fas fa-seedling"></i> Ecosistemas</button> </li>
+        <li><button class="nav-item" (click)="redirigir('/bosques')"><i class="fas fa-tree"></i> Bosques</button></li>
+        <li><button class="nav-item" (click)="redirigir('/desertificacion')"><i class="fas fa-sun"></i> Desertificación</button></li>
+        <li><button class="nav-item" (click)="redirigir('/degradacion')"><i class="fas fa-recycle"></i> Degradación</button></li>
+        <li><button class="nav-item" (click)="redirigir('/biodiversidad')"><i class="fas fa-leaf"></i> Biodiversidad</button></li>
+        <li><button class="nav-item" (click)="redirigir('/publicaciones')"><i class="fas fa-book"></i> Publicaciones</button></li>
         <li><button class="nav-item"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</button></li>
       </ul>
     </nav>

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-menu',
@@ -6,5 +7,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent {
-  // Aquí puedes agregar lógica, como el manejo de inicio y cierre de sesión
+  constructor(private router: Router) {}
+
+  redirigir(ruta: string) {
+    this.router.navigate([ruta]);
+  }
 }
+
+
