@@ -1,0 +1,126 @@
+/* Estilo general para el contenedor principal */
+.main-container {
+    background-color: #e6fbe3; /* Fondo verde suave */
+    padding: 20px;
+    text-align: center;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos para el header */
+.hero {
+    background-color: #4caf50; /* Verde más oscuro */
+    color: #333333; /* Texto en gris oscuro */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.hero h1 {
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
+    font-size: 2rem;
+    color: #fff;
+}
+
+/* Estilos para la sección de imagen y contenido */
+.image-info {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.image-container {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    position: relative;
+}
+
+.main-image {
+    width: 100%;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.info {
+    background-color: #dcf1d9; /* Fondo verde claro */
+    padding: 25px;
+    width: 65%;
+    border-radius: 20px;
+    color: #333333;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    line-height: 1.6;
+    font-size: 16px;
+    background-image: linear-gradient(135deg, #e6fbe3, #dcf1d9);
+}
+
+.info h2 {
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
+    color: #2a9235;
+    margin-bottom: 15px;
+}
+
+/* Estilos para la sección de contacto */
+.contact {
+    margin-top: 10px;
+    padding: 15px;
+    background-color: #ffffff; /* Fondo blanco para el contacto */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%; /* Ajusta el ancho al contenedor */
+}
+
+.contact h2 {
+    font-family: 'Arial', sans-serif;
+    font-size: 1.4rem; /* Tamaño reducido */
+    font-weight: bold;
+    color: #4caf50;
+    margin-bottom: 10px;
+}
+
+.contact-info p {
+    font-family: 'Arial', sans-serif;
+    font-size: 1rem;
+    color: #333333;
+    margin-bottom: 8px;
+}
+
+.contact-info ul {
+    list-style: none;
+    padding-left: 20px;
+}
+
+.contact-info ul li {
+    font-family: 'Arial', sans-serif;
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+}
+
+.contact-info ul li a {
+    color: #4caf50;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.contact-info ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Ajustes para pantallas pequeñas */
+@media (max-width: 768px) {
+    .image-info {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .info, .contact {
+        width: 90%;
+    }
+
+    .main-image {
+        width: 80%;
+    }
+}
