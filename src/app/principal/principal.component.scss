@@ -68,3 +68,54 @@ h1, h2 {
   font-weight: normal;
   color: #333333; /* Gris claro para texto secundario */
 }
+
+.slider-frame {
+  width: 45%;
+  max-width: 500px;
+  height: 300px; /* Ajusta este valor según la altura deseada */
+  margin: 50px auto 0;
+  overflow: hidden;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.slider-frame ul {
+  display: flex;
+  padding: 0;
+  width: 400%;
+  animation: slide 20s infinite alternate ease-in-out;
+}
+
+.slider-frame li {
+  width: 100%;
+  list-style: none;
+}
+
+.slider-frame img {
+  display: block;
+  width: 100%;
+  height: 100%; 
+  object-fit: cover; 
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.slider-frame img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes slide {
+  0% { margin-left: 0; }
+  20% { margin-left: 0; }
+  
+  25% { margin-left: -100%; }
+  45% { margin-left: -100%; }
+  
+  50% { margin-left: -200%; }
+  70% { margin-left: -200%; }
+  
+  75% { margin-left: -300%; }
+  100% { margin-left: -300%; }
+}
