@@ -1,0 +1,70 @@
+.main-container {
+  background-color: #e6fbe3; /* Fondo verde suave */
+  padding: 20px;
+  text-align: center;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.hero {
+  background-color: #4caf50; /* Verde más oscuro */
+  color: #333333; /* Texto en gris oscuro */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  margin-top: 20px;
+}
+
+.main-image {
+  width: 45%;
+  max-width: 500px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.main-image:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.info {
+  width: 45%;
+  background-color: #dcf1d9; /* Fondo verde claro */
+  padding: 15px;
+  margin-left: 10px;
+  border-radius: 10px;
+  color: #333333; /* Texto en gris oscuro */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.info:hover {
+  transform: scale(1.05);
+}
+
+h1, h2 {
+  font-family: 'Arial', sans-serif;
+  font-weight: bold;
+  color: #333333; /* Texto en gris oscuro */
+}
+
+.a {
+
+  font-family: 'Arial', sans-serif;
+  font-weight: normal;
+  color: #e6fbe3; /* Gris claro para texto secundario */
+}
+
+.b{
+  font-family: 'Arial', sans-serif;
+  font-weight: normal;
+  color: #333333; /* Gris claro para texto secundario */
+}
