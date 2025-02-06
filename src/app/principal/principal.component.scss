@@ -50,7 +50,14 @@
   transform: scale(1.05);
 }
 
-h1, h2 {
+.hero h1 {
+  font-family: 'Arial', sans-serif;
+  font-weight: bold;
+  font-size: 2rem;
+  color: #fff;
+}
+
+ h2 {
   font-family: 'Arial', sans-serif;
   font-weight: bold;
   color: #333333; /* Texto en gris oscuro */
