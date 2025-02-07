@@ -18,12 +18,16 @@
               <span class="respuesta-fecha">Publicado por: {{ pub.nombreUsuario }}</span>
               <br>
               <!-- Botón para mostrar/ocultar respuestas -->
+             
+
               <button class="btn-responder" (click)="abrirModal(pub.idPublicacion)">
-                Ver respuestas
+                <i class="fas fa-comments"></i> Ver respuestas
               </button>
 
-              
-              <button *ngIf="pub.idUsuario == idUsuarioActual" class="btn-eliminar" (click)="confirmarEliminar(pub)">Eliminar</button>
+              <!-- Botón de eliminar con ícono (solo si el usuario actual es el dueño de la publicación) -->
+              <button *ngIf="pub.idUsuario == idUsuarioActual" class="btn-eliminar" (click)="confirmarEliminar(pub)">
+                <i class="fas fa-trash-alt"></i> Eliminar
+              </button>
             </div>
           </div>
         </div>
