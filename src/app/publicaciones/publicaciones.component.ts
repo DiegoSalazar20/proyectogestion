@@ -90,7 +90,7 @@ export class PublicacionesComponent implements OnInit {
         }
       });
     } else {
-      this.enviarPublicacion(idUsuario, 'https://via.placeholder.com/150');
+      this.enviarPublicacion(idUsuario, '');
     }
   }
 

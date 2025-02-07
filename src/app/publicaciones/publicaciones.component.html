@@ -10,8 +10,8 @@
       <section class="publicaciones">
         <h2>Publicaciones recientes</h2>
         <div class="lista-publicaciones">
-          <div *ngFor="let pub of publicaciones" class="card">
-            <img [src]="pub.imagen" alt="Imagen de la publicación">
+          <div *ngFor="let pub of publicaciones" class="card" [ngClass]="{'sin-imagen': pub.imagen === ''}">
+            <img *ngIf="pub.imagen !== ''" [src]="pub.imagen" alt="Imagen de la publicación">
             <div class="contenido">
               <p>{{ pub.texto }}</p>
               <span class="fecha">{{ pub.fecha | date:'short' }}</span>
@@ -21,12 +21,12 @@
              
 
               <button class="btn-responder" (click)="abrirModal(pub.idPublicacion)">
-                <i class="fas fa-comments"></i> Ver respuestas
+                <i class="fas fa-comments"></i>
               </button>
 
               <!-- Botón de eliminar con ícono (solo si el usuario actual es el dueño de la publicación) -->
               <button *ngIf="pub.idUsuario == idUsuarioActual" class="btn-eliminar" (click)="confirmarEliminar(pub)">
-                <i class="fas fa-trash-alt"></i> Eliminar
+                <i class="fas fa-trash-alt"></i> 
               </button>
             </div>
           </div>
@@ -59,11 +59,13 @@
             <p class="respuesta-texto">
               <strong>{{ resp.nombreUsuario }}:</strong> {{ resp.texto }}
             </p>
-            <br>
-            <span class="respuesta-fecha">{{ resp.fecha | date: 'short' }}</span>
-            <button *ngIf="resp.idUsuario == idUsuarioActual" class="btn-eliminar" (click)="confirmarEliminarComentario(resp)">
-              Eliminar
+            
+            
+            <button *ngIf="resp.idUsuario == idUsuarioActual" class="btn-eliminarComent" (click)="confirmarEliminarComentario(resp)">
+              <i class="fas fa-trash-alt"></i> 
             </button>
+
+            <span class="respuesta-fecha">{{ resp.fecha | date: 'short' }}</span>
           </div>
         </li>
       </ul>
@@ -74,7 +76,12 @@
     
     <div class="respuesta-input">
       <input type="text" [(ngModel)]="nuevaRespuesta.texto" placeholder="Escribe tu respuesta..." />
-      <button class="btn-enviar" (click)="enviarRespuesta()">Enviar</button>
+
+      <button class="btn-enviar" (click)="enviarRespuesta()">
+        <i class="fas fa-paper-plane"></i> 
+      </button>
+      
+
     </div>
   </div>
 </div>
@@ -82,7 +89,7 @@
 <div *ngIf="mostrarModal" class="modal-overlay">
   <div class="modal-content">
     <p>¿Está seguro que quiere eliminar la publicación?</p>
-    <button (click)="eliminarPublicacion()">Sí, eliminar</button>
+    <button class="btn-eliminarConfig" (click)="eliminarPublicacion()">Sí, eliminar</button>
     <button (click)="cancelarEliminar()">Cancelar</button>
   </div>
 </div>
@@ -90,7 +97,7 @@
 <div *ngIf="mostrarModalComentario" class="modal-overlay">
   <div class="modal-content">
     <p>¿Está seguro que quiere eliminar este comentario?</p>
-    <button (click)="eliminarComentario()">Sí, eliminar</button>
+    <button class="btn-eliminarConfig" (click)="eliminarComentario()">Sí, eliminar</button>
     <button (click)="cancelarEliminarComentario()">Cancelar</button>
   </div>
 </div>
