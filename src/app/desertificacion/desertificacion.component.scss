@@ -1,0 +1,180 @@
+.main-container {
+    background-color: #e6fbe3; /* Fondo verde suave */
+    padding: 20px;
+    text-align: center;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.hero {
+    background-color: #4caf50; /* Verde más oscuro */
+    color: #333333; /* Texto en gris oscuro */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.content {
+    display: flex;
+    justify-content: space-between; /* Distribuye el contenido en dos columnas */
+    align-items: flex-start;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.image-container {
+    display: flex;
+    justify-content: space-between; /* Distribuye las imágenes */
+    gap: 20px;
+    width: 100%; /* Asegura que ocupe todo el espacio disponible */
+    overflow: hidden; /* Esconde cualquier imagen que quede fuera del contenedor */
+}
+
+.image-wrapper {
+    display: flex;
+    width: max-content; /* Hace que el contenedor de las imágenes se ajuste a su contenido */
+    animation: slideImages 12s linear infinite; /* Llama la animación para mover las imágenes */
+}
+
+.main-image {
+    width: 20%; /* Establece que cada imagen ocupe un 20% del ancho */
+    height: auto; /* Mantiene la relación de aspecto */
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Animación para el movimiento circular */
+@keyframes slideImages {
+    0% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(-100%);
+    }
+    50% {
+        transform: translateX(-200%);
+    }
+    75% {
+        transform: translateX(-300%);
+    }
+    100% {
+        transform: translateX(-400%); /* Mueve el contenedor más allá de las 4 imágenes */
+    }
+}
+
+/* Sección de información */
+.info {
+    width: 70%; /* Ocupa el 70% del contenedor */
+    background-color: #dcf1d9; /* Fondo verde claro */
+    padding: 25px;
+    border-radius: 20px; /* Bordes más redondeados */
+    color: #333333; /* Texto en gris oscuro */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+    text-align: left; /* Alinea el texto a la izquierda */
+    overflow-y: auto; /* Permite el desplazamiento si el texto es largo */
+    line-height: 1.6; /* Mejora la legibilidad */
+    font-size: 16px; /* Tamaño de fuente adecuado */
+    background-image: linear-gradient(135deg, #e6fbe3, #dcf1d9); /* Degradado sutil */
+}
+
+.info h2 {
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
+    color: #2a9235; /* Verde más oscuro para el título */
+    margin-bottom: 15px; /* Espacio abajo del título */
+    font-size: 24px; /* Tamaño grande para el título */
+}
+
+.info p {
+    font-family: 'Arial', sans-serif;
+    font-weight: normal;
+    color: #333333; /* Gris oscuro para el texto */
+}
+
+.info p.b {
+    font-size: 16px; /* Tamaño de texto adecuado */
+    margin-bottom: 10px;
+}
+
+.info p.b:last-child {
+    margin-bottom: 0;
+}
+
+.info ul {
+    list-style: inside;
+    margin-left: 20px;
+}
+
+.info ul li {
+    margin-bottom: 8px;
+}
+
+.info ul li::before {
+    content: "•"; /* Usa un punto para las listas */
+    color: #4caf50; /* Verde para los puntos */
+    margin-right: 8px;
+}
+
+/* Panel para compartir enlaces */
+.share-panel {
+    width: 25%; /* Ocupa el 25% del contenedor */
+    background-color: #ffffff; /* Fondo blanco para contraste */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 20px; /* Mantiene el panel en la parte superior */
+    height: fit-content;
+}
+
+.share-panel h3 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333333;
+}
+
+.share-panel ul {
+    list-style: none;
+    padding: 0;
+}
+
+.share-panel ul li {
+    margin-bottom: 10px;
+}
+
+.share-panel ul li a {
+    color: #4caf50;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.share-panel ul li a:hover {
+    text-decoration: underline;
+}
+
+.hero h1 {
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
+    font-size: 2rem;
+    color: #fff;
+}
+
+
+h2 {
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
+    color: #333333; /* Texto en gris oscuro */
+}
+
+.a {
+    font-family: 'Arial', sans-serif;
+    font-weight: normal;
+    color: #e6fbe3; /* Gris claro para texto secundario */
+}
+
+.b {
+    font-family: 'Arial', sans-serif;
+    font-weight: normal;
+    color: #333333; /* Gris claro para texto secundario */
+}
