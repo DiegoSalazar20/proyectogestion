@@ -6,6 +6,8 @@ import { DesertificacionComponent } from './desertificacion/desertificacion.comp
 import { DegradacionComponent } from './degradacion/degradacion.component';
 import { BiodiversidadComponent } from './biodiversidad/biodiversidad.component';
 import { PublicacionesComponent } from './publicaciones/publicaciones.component';
+import { RegistroComponent } from './registro/registro.component';
+import { IniciosesionComponent } from './iniciosesion/iniciosesion.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'principal', pathMatch: 'full' }, 
@@ -15,5 +17,7 @@ export const routes: Routes = [
     { path: 'desertificacion', component: DesertificacionComponent },
     { path: 'degradacion', component: DegradacionComponent },
     { path: 'biodiversidad', component: BiodiversidadComponent },
-    { path: 'publicaciones', component: PublicacionesComponent }
+    { path: 'publicaciones', component: PublicacionesComponent },
+    { path: 'registro', component: RegistroComponent },
+    { path: 'iniciosesion', component: IniciosesionComponent },
   ];

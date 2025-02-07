@@ -1,1 +1,38 @@
-<p>iniciosesion works!</p>
+<div class="login-container">
+    <h1>Iniciar Sesión</h1>
+  
+    <form (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="correo">Correo</label>
+        <input
+          type="email"
+          id="correo"
+          [(ngModel)]="usuario.correo"
+          name="correo"
+          required
+          placeholder="Correo electrónico"
+        />
+      </div>
+  
+      <div class="form-group">
+        <label for="contrasenia">Contraseña</label>
+        <input
+          type="password"
+          id="contrasenia"
+          [(ngModel)]="usuario.contrasenia"
+          name="contrasenia"
+          required
+          placeholder="Contraseña"
+        />
+      </div>
+  
+      <button type="submit" [disabled]="!usuario.correo || !usuario.contrasenia">
+        Iniciar Sesión
+      </button>
+    </form>
+  
+    <div class="footer">
+      <p>¿No tienes cuenta? <a (click)="redirigir('/registro')">Regístrate</a></p>
+    </div>
+  </div>
+  
