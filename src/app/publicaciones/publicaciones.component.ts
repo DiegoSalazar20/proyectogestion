@@ -65,8 +65,7 @@ export class PublicacionesComponent implements OnInit {
         });
     }
   }
-
-  // Método para cerrar el modal
+  
   cerrarModal() {
     this.modalVisible = false;
     this.respuestasActuales = []; // Limpiar las respuestas
