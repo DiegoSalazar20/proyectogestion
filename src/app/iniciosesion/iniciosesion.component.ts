@@ -32,6 +32,7 @@ export class IniciosesionComponent {
             console.log('Inicio de sesión exitoso:', response);
             localStorage.setItem('idUsuario', response.idUsuario);
             localStorage.setItem('nombre', response.nombre);
+            this.router.navigate(['/principal']); 
           } else {
             console.log('Credenciales incorrectas');
           }

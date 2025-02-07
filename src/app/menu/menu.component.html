@@ -9,7 +9,12 @@
         <li><button class="nav-item" (click)="redirigir('/degradacion')"><i class="fas fa-recycle"></i> Degradación</button></li>
         <li><button class="nav-item" (click)="redirigir('/biodiversidad')"><i class="fas fa-leaf"></i> Biodiversidad</button></li>
         <li><button class="nav-item" (click)="redirigir('/publicaciones')"><i class="fas fa-book"></i> Publicaciones</button></li>
-        <li><button class="nav-item"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</button></li>
+        <li>
+          <button class="nav-item" (click)="manejarSesion()">
+            <i class="fas" [ngClass]="idUsuario ? 'fa-sign-out-alt' : 'fa-sign-in-alt'"></i> 
+            {{ idUsuario ? 'Cerrar sesión' : 'Iniciar sesión' }}
+          </button>
+        </li>
       </ul>
     </nav>
   </header>
