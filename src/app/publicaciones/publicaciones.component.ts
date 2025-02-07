@@ -21,9 +21,16 @@ export class PublicacionesComponent implements OnInit {
   private imgbbUrl = 'https://api.imgbb.com/1/upload';
   private respuestaUrl = 'https://localhost:7004/api/Respuesta/Registrar';
 
-  modalVisible = false; 
-  respuestasActuales: any[] = []; 
-  publicacionSeleccionada: any; 
+  mostrarModal: boolean = false;
+  mostrarModalComentario: boolean = false;
+
+  modalVisible = false;
+  respuestasActuales: any[] = [];
+  publicacionSeleccionada: any;
+
+  idUsuarioActual = localStorage.getItem('idUsuario');
+  publicacionAEliminar: any = null;
+  comentarioAEliminar: any = null;
 
   constructor(private http: HttpClient, private cdr: ChangeDetectorRef) { }
 
@@ -128,16 +135,16 @@ export class PublicacionesComponent implements OnInit {
               }
             });
           });
-          this.modalVisible = true; 
+          this.modalVisible = true;
         }, error => {
           console.error("Error obteniendo respuestas:", error);
         });
     }
   }
-  
+
   cerrarModal() {
     this.modalVisible = false;
-    this.respuestasActuales = []; 
+    this.respuestasActuales = [];
   }
 
   enviarRespuesta() {
@@ -145,9 +152,9 @@ export class PublicacionesComponent implements OnInit {
       alert('La respuesta no puede estar vacía.');
       return;
     }
-  
+
     const idUsuario = Number(localStorage.getItem('idUsuario') || '0');
-  
+
     const nuevaResp = {
       idRespuesta: 0, // Este valor lo asignará el backend
       idPublicacion: this.publicacionSeleccionada.idPublicacion,
@@ -155,7 +162,7 @@ export class PublicacionesComponent implements OnInit {
       texto: this.nuevaRespuesta.texto,
       fecha: new Date().toISOString()
     };
-  
+
     // Enviar la respuesta al servidor
     this.http.post<boolean>(this.respuestaUrl, nuevaResp).subscribe({
       next: (respuestaGuardada: boolean) => {
@@ -166,7 +173,7 @@ export class PublicacionesComponent implements OnInit {
             idRespuesta: this.respuestasActuales.length + 1, // Asigna un ID temporal (o usa uno real si lo tienes)
             nombreUsuario: '' // Inicialmente vacío
           };
-  
+
           // Obtener los datos del usuario que hizo la respuesta
           this.getUsuarioById(idUsuario).subscribe({
             next: (usuario) => {
@@ -196,5 +203,60 @@ export class PublicacionesComponent implements OnInit {
   getUsuarioById(idUsuario: number) {
     return this.http.get<any>(`https://localhost:7004/api/Cliente/BuscarDatos?idUsuario=${idUsuario}`);
   }
+
+  confirmarEliminar(publicacion: any): void {
+    this.publicacionAEliminar = publicacion;
+    this.mostrarModal = true;
+  }
+
+  confirmarEliminarComentario(comentario: any): void {
+    this.comentarioAEliminar = comentario;
+    this.mostrarModalComentario = true;
+  }
+
+  cancelarEliminarComentario(): void {
+    this.mostrarModalComentario = false;
+    this.comentarioAEliminar = null;
+  }
+
+  cancelarEliminar(): void {
+    this.mostrarModal = false;
+    this.publicacionAEliminar = null;
+  }
+
+  eliminarPublicacion(): void {
+    if (this.publicacionAEliminar) {
+      this.http.put(`https://localhost:7004/api/Publicacion/Cerrar?idPublicacion=${this.publicacionAEliminar.idPublicacion}`, {}).subscribe(
+        () => {
+          this.publicaciones = this.publicaciones.filter(pub => pub.idPublicacion !== this.publicacionAEliminar.idPublicacion);
+          this.publicacionAEliminar = null;
+          this.mostrarModal=false;
+        },
+        error => {
+          console.error('Error al eliminar publicación', error);
+        }
+      );
+    }
+  }
+
+
+  eliminarComentario(): void {
+    if (this.comentarioAEliminar !== null) {
+      const url = `https://localhost:7004/api/Respuesta/Eliminar/${this.comentarioAEliminar.idRespuesta }`;
   
+      this.http.delete(url).subscribe(
+        () => {
+          // Filtrar para eliminar el comentario de la lista
+          this.respuestasActuales = this.respuestasActuales.filter(resp => resp.idRespuesta !== this.comentarioAEliminar.idRespuesta);
+          this.comentarioAEliminar = null;
+          this.mostrarModalComentario = false;
+        },
+        error => {
+          console.error('Error al eliminar comentario', error);
+        }
+      );
+    }
+  }
+  
+
 }

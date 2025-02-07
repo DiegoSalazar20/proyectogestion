@@ -22,7 +22,8 @@
                 Ver respuestas
               </button>
 
-              <button class="btn-responder" (click)="abrirModal(pub.idPublicacion)" >Responder</button>
+              
+              <button *ngIf="pub.idUsuario == idUsuarioActual" class="btn-eliminar" (click)="confirmarEliminar(pub)">Eliminar</button>
             </div>
           </div>
         </div>
@@ -51,15 +52,19 @@
       <ul *ngIf="respuestasActuales.length > 0; else noRespuestas">
         <li *ngFor="let resp of respuestasActuales" class="respuesta">
           <div class="respuesta-contenido">
-            <p class="respuesta-texto">{{ resp.texto }}</p>
-            <span class="respuesta-fecha">Respondido por: {{ resp.nombreUsuario }}</span>
+            <p class="respuesta-texto">
+              <strong>{{ resp.nombreUsuario }}:</strong> {{ resp.texto }}
+            </p>
             <br>
             <span class="respuesta-fecha">{{ resp.fecha | date: 'short' }}</span>
+            <button *ngIf="resp.idUsuario == idUsuarioActual" class="btn-eliminar" (click)="confirmarEliminarComentario(resp)">
+              Eliminar
+            </button>
           </div>
         </li>
       </ul>
       <ng-template #noRespuestas>
-        <p class="mensaje-no-respuestas">No hay respuestas para esta publicación.</p>
+        <p class="mensaje-no-respuestas">Aún no hay respuestas para esta publicación.</p>
       </ng-template>
     </div>
     
@@ -70,3 +75,18 @@
   </div>
 </div>
 
+<div *ngIf="mostrarModal" class="modal-overlay">
+  <div class="modal-content">
+    <p>¿Está seguro que quiere eliminar la publicación?</p>
+    <button (click)="eliminarPublicacion()">Sí, eliminar</button>
+    <button (click)="cancelarEliminar()">Cancelar</button>
+  </div>
+</div>
+
+<div *ngIf="mostrarModalComentario" class="modal-overlay">
+  <div class="modal-content">
+    <p>¿Está seguro que quiere eliminar este comentario?</p>
+    <button (click)="eliminarComentario()">Sí, eliminar</button>
+    <button (click)="cancelarEliminarComentario()">Cancelar</button>
+  </div>
+</div>
