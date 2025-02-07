@@ -1,0 +1,328 @@
+.main-container {
+    background-color: #e6fbe3;
+    padding: 20px;
+    text-align: center;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .hero {
+    background-color: #4caf50;
+    color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .image-info {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  .image-container {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    position: relative;
+  }
+  
+  .main-image {
+    width: 100%;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  }
+  
+  .info {
+    background-color: #dcf1d9;
+    padding: 25px;
+    width: 65%;
+    border-radius: 20px;
+    color: #333333;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    line-height: 1.6;
+    font-size: 16px;
+    background-image: linear-gradient(135deg, #e6fbe3, #dcf1d9);
+  }
+  
+  .publication-list {
+    list-style: none;
+    padding-left: 0;
+  }
+  
+  .publication-list li {
+    background-color: #fff;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Estilos de publicaciones */
+  .publicaciones {
+    margin-top: 30px;
+  
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+  }
+  
+  .lista-publicaciones {
+    max-height: 500px; 
+    overflow-y: auto;  
+    overflow-x: hidden; 
+    display: flex;
+    flex-direction: column; 
+    gap: 15px; 
+    padding: 10px;
+  }
+  
+  
+  .card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 600px;  // 🔹 Ajusta el ancho máximo si es necesario
+    min-height: 400px;  // 🔹 Aumenta la altura mínima
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    background: white;
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out;
+  
+    &:hover {
+      transform: scale(1.05);
+    }
+  
+    img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+    }
+  
+    .contenido {
+      padding: 15px;
+  
+      p {
+        font-size: 14px;
+        color: #333;
+      }
+  
+      .fecha {
+        display: block;
+        font-size: 12px;
+        color: #777;
+        margin-top: 5px;
+      }
+    }
+  }
+  
+  /* Estilos para el formulario de publicación */
+  .crear-publicacion {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin-top: 20px;
+  
+    textarea, input {
+      width: 100%;
+      margin: 10px 0;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+  
+    button {
+      background-color: #4caf50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+  
+      &:hover {
+        background-color: #388e3c;
+      }
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .image-info {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .info, .crear-publicacion {
+      width: 90%;
+    }
+  }
+
+  .lista-publicaciones {
+    max-height: 500px; // 🔹 Altura máxima antes de activar scroll
+    overflow-y: auto;  // 🔹 Scroll vertical si hay muchas publicaciones
+    display: flex;
+    flex-direction: column; // 🔹 Para que se pongan una debajo de otra
+    gap: 15px; // 🔹 Espaciado entre publicaciones
+    padding: 10px;
+  }
+  
+  .card {
+    display: flex;
+    flex-direction: column; // 🔹 Asegura que la imagen y el contenido estén en columna
+    align-items: center;
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%; // 🔹 Ocupa todo el ancho disponible
+    max-width: 600px; // 🔹 Tamaño máximo para que no sea demasiado grande
+    margin: 0 auto; // 🔹 Centra la tarjeta
+  }
+  
+  .card img {
+    width: 100%; // 🔹 Imagen más grande
+    max-height: 300px; // 🔹 Límite de altura
+    object-fit: cover;
+    border-radius: 8px;
+  }
+  
+  .contenido {
+    width: 100%;
+    text-align: center;
+  }
+  
+  .fecha {
+    font-size: 14px;
+    color: #666;
+    display: block;
+    margin-top: 8px;
+  }
+  
+  .btn-responder {
+    margin-top: 10px;
+    padding: 8px 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .btn-responder:hover {
+    background-color: #0056b3;
+  }
+
+  button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    margin-top: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  li {
+    background: #f1f1f1;
+    margin: 5px 0;
+    padding: 8px;
+    border-radius: 5px;
+  }
+  
+  .respuestas-container {
+    margin-top: 10px;
+    padding: 10px;
+    border-top: 1px solid #ccc;
+    background: #f9f9f9;
+    border-radius: 5px;
+  }
+  
+  .respuesta {
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+    list-style: none;
+  }
+  
+  .respuesta:last-child {
+    border-bottom: none;
+  }
+  
+  .respuesta-texto {
+    font-size: 14px;
+    color: #333;
+  }
+  
+  .respuesta-fecha {
+    font-size: 12px;
+    color: #666;
+    margin-top: 2px;
+  }
+  
+  
+  .respuesta img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  
+  .respuesta-contenido {
+    flex-grow: 1;
+  }
+  
+  
+  
+  /* Estilos para el modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.mensaje-no-respuestas {
+  text-align: center;
+  color: #666;
+}

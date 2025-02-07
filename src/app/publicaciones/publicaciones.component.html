@@ -1,2 +1,60 @@
 <app-menu ngSkipHydration></app-menu>
-<p>publicaciones works!</p>
+
+<div class="main-container">
+  <header class="hero">
+    <h1>Publicaciones</h1>
+  </header>
+
+  <section class="image-info">
+    <div class="info">
+      <section class="publicaciones">
+        <h2>Publicaciones recientes</h2>
+        <div class="lista-publicaciones">
+          <div *ngFor="let pub of publicaciones" class="card">
+            <img [src]="pub.imagen" alt="Imagen de la publicación">
+            <div class="contenido">
+              <p>{{ pub.texto }}</p>
+              <span class="fecha">{{ pub.fecha | date:'short' }}</span>
+
+              <!-- Botón para mostrar/ocultar respuestas -->
+              <button class="btn-responder" (click)="abrirModal(pub.idPublicacion)">
+                Ver respuestas
+              </button>
+
+              <button class="btn-responder">Responder</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="image-container">
+      <div class="crear-publicacion">
+        <h2>Crear nueva publicación</h2>
+        <textarea [(ngModel)]="nuevaPublicacion.texto" placeholder="Escribe tu publicación..."></textarea>
+        <input type="text" [(ngModel)]="nuevaPublicacion.imagen" placeholder="URL de la imagen">
+        <button (click)="publicar()">Publicar</button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- Modal para mostrar respuestas -->
+<div *ngIf="modalVisible" class="modal-overlay">
+  <div class="modal-content">
+    <button class="close-button" (click)="cerrarModal()">&times;</button>
+    <h2>Respuestas</h2>
+    <ul *ngIf="respuestasActuales.length > 0; else noRespuestas">
+      <li *ngFor="let resp of respuestasActuales" class="respuesta">
+        <div class="respuesta-contenido">
+          <p class="respuesta-texto">{{ resp.texto }}</p>
+          <span class="respuesta-fecha">{{ resp.fecha | date: 'short' }}</span>
+        </div>
+      </li>
+    </ul>
+    <ng-template #noRespuestas>
+      <p class="mensaje-no-respuestas">No hay respuestas aún.</p>
+    </ng-template>
+  </div>
+</div>
+
