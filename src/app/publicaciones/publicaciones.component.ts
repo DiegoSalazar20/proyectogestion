@@ -15,9 +15,11 @@ export class PublicacionesComponent implements OnInit {
   publicaciones: any[] = [];
   nuevaPublicacion = { texto: '', imagen: '' };
   imagenSeleccionada: File | null = null;
+  nuevaRespuesta = { texto: '' };
   private apiUrl = 'https://localhost:7004/api/Publicacion/Registrar';
   private imgbbApiKey = 'd60d30663d0738e998fef145e02b387a';
   private imgbbUrl = 'https://api.imgbb.com/1/upload';
+  private respuestaUrl = 'https://localhost:7004/api/Respuesta/Registrar';
 
   modalVisible = false; 
   respuestasActuales: any[] = []; 
@@ -33,6 +35,16 @@ export class PublicacionesComponent implements OnInit {
     this.http.get<any[]>('https://localhost:7004/api/Publicacion/todos').subscribe({
       next: (data) => {
         this.publicaciones = data.filter(p => p.activo);
+        this.publicaciones.forEach(pub => {
+          this.getUsuarioById(pub.idUsuario).subscribe({
+            next: (usuario) => {
+              pub.nombreUsuario = `${usuario.nombre} ${usuario.apellido}`;
+            },
+            error: (err) => {
+              console.error('Error obteniendo datos del usuario:', err);
+            }
+          });
+        });
       },
       error: (err) => {
         console.error('Error obteniendo publicaciones:', err);
@@ -106,6 +118,16 @@ export class PublicacionesComponent implements OnInit {
         .subscribe(respuestas => {
           console.log("Respuestas recibidas:", respuestas);
           this.respuestasActuales = respuestas;
+          this.respuestasActuales.forEach(resp => {
+            this.getUsuarioById(resp.idUsuario).subscribe({
+              next: (usuario) => {
+                resp.nombreUsuario = `${usuario.nombre} ${usuario.apellido}`;
+              },
+              error: (err) => {
+                console.error('Error obteniendo datos del usuario:', err);
+              }
+            });
+          });
           this.modalVisible = true; 
         }, error => {
           console.error("Error obteniendo respuestas:", error);
@@ -117,4 +139,62 @@ export class PublicacionesComponent implements OnInit {
     this.modalVisible = false;
     this.respuestasActuales = []; 
   }
+
+  enviarRespuesta() {
+    if (!this.nuevaRespuesta.texto.trim()) {
+      alert('La respuesta no puede estar vacía.');
+      return;
+    }
+  
+    const idUsuario = Number(localStorage.getItem('idUsuario') || '0');
+  
+    const nuevaResp = {
+      idRespuesta: 0, // Este valor lo asignará el backend
+      idPublicacion: this.publicacionSeleccionada.idPublicacion,
+      idUsuario: idUsuario,
+      texto: this.nuevaRespuesta.texto,
+      fecha: new Date().toISOString()
+    };
+  
+    // Enviar la respuesta al servidor
+    this.http.post<boolean>(this.respuestaUrl, nuevaResp).subscribe({
+      next: (respuestaGuardada: boolean) => {
+        if (respuestaGuardada === true) {
+          // Si el backend devuelve `true`, construye el objeto de respuesta manualmente
+          const respuestaConUsuario = {
+            ...nuevaResp,
+            idRespuesta: this.respuestasActuales.length + 1, // Asigna un ID temporal (o usa uno real si lo tienes)
+            nombreUsuario: '' // Inicialmente vacío
+          };
+  
+          // Obtener los datos del usuario que hizo la respuesta
+          this.getUsuarioById(idUsuario).subscribe({
+            next: (usuario) => {
+              // Agregar el nombre del usuario a la respuesta
+              respuestaConUsuario.nombreUsuario = `${usuario.nombre} ${usuario.apellido}`;
+              // Agregar la respuesta a la lista de respuestas actuales
+              this.respuestasActuales.unshift(respuestaConUsuario);
+              // Limpiar el campo de texto
+              this.nuevaRespuesta.texto = '';
+              // Forzar la detección de cambios
+              this.cdr.detectChanges();
+            },
+            error: (err) => {
+              console.error('Error obteniendo datos del usuario:', err);
+              alert('No se pudo obtener el nombre del usuario.');
+            }
+          });
+        }
+      },
+      error: (err) => {
+        console.error('Error enviando respuesta:', err);
+        alert('Hubo un error al enviar la respuesta.');
+      }
+    });
+  }
+
+  getUsuarioById(idUsuario: number) {
+    return this.http.get<any>(`https://localhost:7004/api/Cliente/BuscarDatos?idUsuario=${idUsuario}`);
+  }
+  
 }

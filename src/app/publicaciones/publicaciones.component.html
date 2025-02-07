@@ -15,13 +15,14 @@
             <div class="contenido">
               <p>{{ pub.texto }}</p>
               <span class="fecha">{{ pub.fecha | date:'short' }}</span>
-
+              <span class="respuesta-fecha">Publicado por: {{ pub.nombreUsuario }}</span>
+              <br>
               <!-- Botón para mostrar/ocultar respuestas -->
               <button class="btn-responder" (click)="abrirModal(pub.idPublicacion)">
                 Ver respuestas
               </button>
 
-              <button class="btn-responder">Responder</button>
+              <button class="btn-responder" (click)="abrirModal(pub.idPublicacion)" >Responder</button>
             </div>
           </div>
         </div>
@@ -44,17 +45,28 @@
   <div class="modal-content">
     <button class="close-button" (click)="cerrarModal()">&times;</button>
     <h2>Respuestas</h2>
-    <ul *ngIf="respuestasActuales.length > 0; else noRespuestas">
-      <li *ngFor="let resp of respuestasActuales" class="respuesta">
-        <div class="respuesta-contenido">
-          <p class="respuesta-texto">{{ resp.texto }}</p>
-          <span class="respuesta-fecha">{{ resp.fecha | date: 'short' }}</span>
-        </div>
-      </li>
-    </ul>
-    <ng-template #noRespuestas>
-      <p class="mensaje-no-respuestas">No hay respuestas para esta publicación.</p>
-    </ng-template>
+
+    <!-- Contenedor con scroll para las respuestas -->
+    <div class="respuestas-container">
+      <ul *ngIf="respuestasActuales.length > 0; else noRespuestas">
+        <li *ngFor="let resp of respuestasActuales" class="respuesta">
+          <div class="respuesta-contenido">
+            <p class="respuesta-texto">{{ resp.texto }}</p>
+            <span class="respuesta-fecha">Respondido por: {{ resp.nombreUsuario }}</span>
+            <br>
+            <span class="respuesta-fecha">{{ resp.fecha | date: 'short' }}</span>
+          </div>
+        </li>
+      </ul>
+      <ng-template #noRespuestas>
+        <p class="mensaje-no-respuestas">No hay respuestas para esta publicación.</p>
+      </ng-template>
+    </div>
+    
+    <div class="respuesta-input">
+      <input type="text" [(ngModel)]="nuevaRespuesta.texto" placeholder="Escribe tu respuesta..." />
+      <button class="btn-enviar" (click)="enviarRespuesta()">Enviar</button>
+    </div>
   </div>
 </div>
 
