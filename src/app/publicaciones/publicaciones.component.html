@@ -32,7 +32,7 @@
       <div class="crear-publicacion">
         <h2>Crear nueva publicación</h2>
         <textarea [(ngModel)]="nuevaPublicacion.texto" placeholder="Escribe tu publicación..."></textarea>
-        <input type="text" [(ngModel)]="nuevaPublicacion.imagen" placeholder="URL de la imagen">
+        <input type="file" (change)="cargarImagen($event)">
         <button (click)="publicar()">Publicar</button>
       </div>
     </div>
