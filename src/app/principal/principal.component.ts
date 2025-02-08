@@ -1,4 +1,5 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit, Inject, PLATFORM_ID} from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { MenuComponent } from '../menu/menu.component';
 import { CommonModule } from '@angular/common';
 
@@ -9,10 +10,12 @@ import { CommonModule } from '@angular/common';
   styleUrl: './principal.component.scss'
 })
 export class PrincipalComponent implements OnInit{
-
+  constructor(@Inject(PLATFORM_ID) private platformId: object) {}
   nombreUsuario: string | null = null;
 
   ngOnInit() {
-    this.nombreUsuario = localStorage.getItem('nombre'); 
+    if (isPlatformBrowser(this.platformId)) {
+      this.nombreUsuario = localStorage.getItem('nombre');
+    } 
   }
 }
