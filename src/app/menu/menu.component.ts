@@ -28,7 +28,8 @@ export class MenuComponent implements OnInit{
   manejarSesion() {
     if (this.idUsuario) {
       localStorage.removeItem('idUsuario');
-      localStorage.removeItem('nombre');  
+      localStorage.removeItem('nombre');
+      localStorage.removeItem('idRol');  
       this.idUsuario = null;
       window.location.reload();
     } else {

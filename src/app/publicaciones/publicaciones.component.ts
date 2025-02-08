@@ -17,6 +17,8 @@ export class PublicacionesComponent implements OnInit {
   nuevaPublicacion = { texto: '', imagen: '' };
   imagenSeleccionada: File | null = null;
   nuevaRespuesta = { texto: '' };
+  idRolActual: number = 0;
+
   private apiUrl = 'https://localhost:7004/api/Publicacion/Registrar';
   private imgbbApiKey = 'd60d30663d0738e998fef145e02b387a';
   private imgbbUrl = 'https://api.imgbb.com/1/upload';
@@ -30,19 +32,29 @@ export class PublicacionesComponent implements OnInit {
   publicacionSeleccionada: any;
 
   
-  idUsuarioActual = localStorage.getItem('idUsuario');
+  idUsuarioActual :string | null=null;
   publicacionAEliminar: any = null;
   comentarioAEliminar: any = null;
 
   constructor(private http: HttpClient, private cdr: ChangeDetectorRef, @Inject(PLATFORM_ID) private platformId: object) { }
   ngOnInit() {
+    if (isPlatformBrowser(this.platformId)) {
+      this.idUsuarioActual = localStorage.getItem('idUsuario');
+      this.idRolActual = Number(localStorage.getItem('idRol')) || 0;
+    }
     this.obtenerPublicaciones();
   }
 
   obtenerPublicaciones() {
+    var idRolActual: number = 0;
+    if(isPlatformBrowser(this.platformId)){
+      idRolActual = this.idRolActual;
+    }
+  
     this.http.get<any[]>('https://localhost:7004/api/Publicacion/todos').subscribe({
       next: (data) => {
-        this.publicaciones = data.filter(p => p.activo);
+        this.publicaciones = idRolActual === 2 ? data : data.filter(p => p.activo);
+  
         this.publicaciones.forEach(pub => {
           this.getUsuarioById(pub.idUsuario).subscribe({
             next: (usuario) => {
@@ -56,6 +68,23 @@ export class PublicacionesComponent implements OnInit {
       },
       error: (err) => {
         console.error('Error obteniendo publicaciones:', err);
+      }
+    });
+  }
+  
+
+  togglePublicacion(pub: any) {
+    const apiUrl = pub.activo
+      ? `https://localhost:7004/api/Publicacion/Cerrar?idPublicacion=${pub.idPublicacion}`
+      : `https://localhost:7004/api/Publicacion/Abrir?idPublicacion=${pub.idPublicacion}`;
+  
+    this.http.put(apiUrl, {}).subscribe({
+      next: () => {
+        pub.activo = !pub.activo; // Cambiar el estado en la interfaz después de una actualización exitosa
+      },
+      error: (err) => {
+        console.error('Error al cambiar estado de la publicación:', err);
+        alert('No se pudo cambiar el estado de la publicación.');
       }
     });
   }
@@ -73,7 +102,7 @@ export class PublicacionesComponent implements OnInit {
       return;
     }
     
-    const idUsuario = localStorage.getItem('idUsuario') || '0';
+    const idUsuario = Number(this.idUsuarioActual);
 
     if (this.imagenSeleccionada) {
       const formData = new FormData();
@@ -95,7 +124,7 @@ export class PublicacionesComponent implements OnInit {
     }
   }
 
-  enviarPublicacion(id: string, imageUrl: string) {
+  enviarPublicacion(id: Number, imageUrl: string) {
     const idUsuario = Number(id);
     this.getUsuarioById(idUsuario).subscribe({
       next: (usuario) => {
@@ -166,8 +195,7 @@ export class PublicacionesComponent implements OnInit {
       alert('La respuesta no puede estar vacía.');
       return;
     }
-
-    const idUsuario = Number(localStorage.getItem('idUsuario') || '0');
+    const idUsuario = Number(this.idUsuarioActual);
 
     const nuevaResp = {
       idRespuesta: 0, 
