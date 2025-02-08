@@ -10,7 +10,7 @@
       <section class="publicaciones">
         <h2>Publicaciones recientes</h2>
         <div class="lista-publicaciones">
-          <div *ngFor="let pub of publicaciones" class="card" [ngClass]="{'sin-imagen': pub.imagen === ''}">
+          <div *ngFor="let pub of publicaciones" class="card" [ngClass]="{'sin-imagen': pub.imagen === '', 'card': pub.imagen !== ''}">
             <img *ngIf="pub.imagen !== ''" [src]="pub.imagen" alt="Imagen de la publicación">
             <div class="contenido">
               <p>{{ pub.texto }}</p>
@@ -19,7 +19,6 @@
               <br>
               <!-- Botón para mostrar/ocultar respuestas -->
              
-
               <button class="btn-responder" (click)="abrirModal(pub.idPublicacion)">
                 <i class="fas fa-comments"></i>
               </button>

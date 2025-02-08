@@ -1,8 +1,9 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, Inject, PLATFORM_ID} from '@angular/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MenuComponent } from '../menu/menu.component';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-publicaciones',
@@ -28,12 +29,12 @@ export class PublicacionesComponent implements OnInit {
   respuestasActuales: any[] = [];
   publicacionSeleccionada: any;
 
+  
   idUsuarioActual = localStorage.getItem('idUsuario');
   publicacionAEliminar: any = null;
   comentarioAEliminar: any = null;
 
-  constructor(private http: HttpClient, private cdr: ChangeDetectorRef) { }
-
+  constructor(private http: HttpClient, private cdr: ChangeDetectorRef, @Inject(PLATFORM_ID) private platformId: object) { }
   ngOnInit() {
     this.obtenerPublicaciones();
   }
@@ -71,7 +72,7 @@ export class PublicacionesComponent implements OnInit {
       alert('El texto de la publicación no puede estar vacío.');
       return;
     }
-
+    
     const idUsuario = localStorage.getItem('idUsuario') || '0';
 
     if (this.imagenSeleccionada) {
@@ -94,25 +95,38 @@ export class PublicacionesComponent implements OnInit {
     }
   }
 
-  enviarPublicacion(idUsuario: string, imageUrl: string) {
-    const nueva = {
-      idPublicacion: 0,
-      idUsuario: Number(idUsuario),
-      texto: this.nuevaPublicacion.texto,
-      imagen: imageUrl,
-      fecha: new Date().toISOString(),
-      activo: true
-    };
+  enviarPublicacion(id: string, imageUrl: string) {
+    const idUsuario = Number(id);
+    this.getUsuarioById(idUsuario).subscribe({
+      next: (usuario) => {
+        const nuevaPub = {
+          idPublicacion: 0,
+          idUsuario: idUsuario,
+          texto: this.nuevaPublicacion.texto,
+          imagen: imageUrl,
+          nombreUsuario: `${usuario.nombre} ${usuario.apellido}`,
+          fecha: new Date().toISOString()
+        };
 
-    this.http.post(this.apiUrl, nueva).subscribe({
-      next: () => {
-        this.publicaciones.unshift(nueva);
-        this.nuevaPublicacion = { texto: '', imagen: '' };
-        this.imagenSeleccionada = null;
+        this.http.post<boolean>(this.apiUrl, nuevaPub).subscribe({
+          next: (publicacionGuardada: boolean) => {
+            if (publicacionGuardada === true) {
+              this.nuevaPublicacion.texto = '';
+              this.imagenSeleccionada = null;
+              this.cdr.detectChanges();
+
+              this.publicaciones.unshift(nuevaPub);  
+            }
+          },
+          error: (err) => {
+            console.error('Error enviando publicación:', err);
+            alert('Hubo un error al enviar la publicación.');
+          }
+        });
       },
       error: (err) => {
-        console.error('Error publicando:', err);
-        alert('Hubo un error al publicar.');
+        console.error('Error obteniendo datos del usuario:', err);
+        alert('No se pudo obtener el nombre del usuario.');
       }
     });
   }
@@ -156,7 +170,7 @@ export class PublicacionesComponent implements OnInit {
     const idUsuario = Number(localStorage.getItem('idUsuario') || '0');
 
     const nuevaResp = {
-      idRespuesta: 0, // Este valor lo asignará el backend
+      idRespuesta: 0, 
       idPublicacion: this.publicacionSeleccionada.idPublicacion,
       idUsuario: idUsuario,
       texto: this.nuevaRespuesta.texto,
@@ -167,23 +181,17 @@ export class PublicacionesComponent implements OnInit {
     this.http.post<boolean>(this.respuestaUrl, nuevaResp).subscribe({
       next: (respuestaGuardada: boolean) => {
         if (respuestaGuardada === true) {
-          // Si el backend devuelve `true`, construye el objeto de respuesta manualmente
           const respuestaConUsuario = {
             ...nuevaResp,
-            idRespuesta: this.respuestasActuales.length + 1, // Asigna un ID temporal (o usa uno real si lo tienes)
-            nombreUsuario: '' // Inicialmente vacío
+            idRespuesta: this.respuestasActuales.length + 1, 
+            nombreUsuario: '' 
           };
 
-          // Obtener los datos del usuario que hizo la respuesta
           this.getUsuarioById(idUsuario).subscribe({
             next: (usuario) => {
-              // Agregar el nombre del usuario a la respuesta
               respuestaConUsuario.nombreUsuario = `${usuario.nombre} ${usuario.apellido}`;
-              // Agregar la respuesta a la lista de respuestas actuales
               this.respuestasActuales.unshift(respuestaConUsuario);
-              // Limpiar el campo de texto
               this.nuevaRespuesta.texto = '';
-              // Forzar la detección de cambios
               this.cdr.detectChanges();
             },
             error: (err) => {

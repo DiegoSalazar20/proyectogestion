@@ -16,6 +16,6 @@ export class PrincipalComponent implements OnInit{
   ngOnInit() {
     if (isPlatformBrowser(this.platformId)) {
       this.nombreUsuario = localStorage.getItem('nombre');
-    } 
+    }
   }
 }
