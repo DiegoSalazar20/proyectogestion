@@ -14,6 +14,7 @@ import { Observable } from 'rxjs';
 })
 export class IniciosesionComponent {
 
+  mensajeError: string | null = null;
 
   constructor(private router: Router, private http: HttpClient) { }
 
@@ -24,6 +25,7 @@ export class IniciosesionComponent {
 
   onSubmit() {
     if (this.usuario.correo && this.usuario.contrasenia) {
+      this.mensajeError = null;
       const loginUrl = `https://localhost:7004/api/Cliente/IniciarSesion?correo=${encodeURIComponent(this.usuario.correo)}&contrasenia=${encodeURIComponent(this.usuario.contrasenia)}`;
 
       this.http.get(loginUrl).subscribe(
@@ -35,19 +37,19 @@ export class IniciosesionComponent {
             localStorage.setItem('idRol', response.idRol);
             this.router.navigate(['/principal']); 
           } else {
-            console.log('Credenciales incorrectas');
+            this.mensajeError='Credenciales incorrectas';
           }
         },
         (error) => {
           if (error.status === 401) {
-            console.log('Correo o contraseña incorrectos');
+            this.mensajeError='Correo o contraseña incorrectos';
           } else {
-            console.error('Error al iniciar sesión', error);
+            this.mensajeError='Error al iniciar sesión';
           }
         }
       );
     } else {
-      console.log('Por favor, completa todos los campos');
+      this.mensajeError='Por favor, completa todos los campos';
     }
   }
 

@@ -13,6 +13,7 @@ import { Observable } from 'rxjs';
 })
 export class RegistroComponent {
 
+  mensajeError: string | null = null;
 
   constructor(private router: Router, private http: HttpClient) {}
 
@@ -25,29 +26,34 @@ export class RegistroComponent {
     idRol: 1
   };
 
-  // Función para manejar el submit del formulario
   onSubmit() {
+    this.mensajeError=null;
     if (this.usuario.nombre && this.usuario.apellido && this.usuario.correo && this.usuario.contrasenia) {
       this.registrarUsuario(this.usuario).subscribe(
         response => {
-          console.log('Usuario registrado correctamente', response);
-          this.redirigir('/principal');
+          if (response.success) {
+            console.log('Usuario registrado correctamente', response.message);
+            this.redirigir('/iniciosesion');
+          } else {
+            this.mensajeError = response.message; 
+          }
         },
         error => {
-          console.error('Error al registrar el usuario', error);
+          this.mensajeError = 'Ocurrió un error inesperado. Inténtalo de nuevo.';
         }
       );
     } else {
-      console.log('Por favor, completa todos los campos');
+      this.mensajeError = 'Quedan campos vacíos';
     }
   }
+  
 
   registrarUsuario(usuario: any): Observable<any> {
     const url = 'https://localhost:7004/api/Cliente/Registrar';
     return this.http.post(url, usuario);
   }
 
-  // Función para limpiar el formulario después de enviar los datos
+
   limpiarFormulario() {
     this.usuario = {
       idUsuario: 0,
