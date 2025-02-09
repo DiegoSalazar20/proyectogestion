@@ -1,5 +1,5 @@
 .main-container {
-    background-color: #e6fbe3; /* Fondo verde suave */
+    background-color: #e6fbe3; 
     padding: 20px;
     text-align: center;
     border-radius: 15px;
@@ -7,8 +7,8 @@
 }
 
 .hero {
-    background-color: #4caf50; /* Verde más oscuro */
-    color: #333333; /* Texto en gris oscuro */
+    background-color: #4caf50; 
+    color: #333333; 
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -16,7 +16,7 @@
 
 .content {
     display: flex;
-    justify-content: space-between; /* Distribuye el contenido en dos columnas */
+    justify-content: space-between; 
     align-items: flex-start;
     gap: 30px;
     margin-top: 20px;
@@ -24,26 +24,25 @@
 
 .image-container {
     display: flex;
-    justify-content: space-between; /* Distribuye las imágenes */
+    justify-content: space-between; 
     gap: 20px;
-    width: 100%; /* Asegura que ocupe todo el espacio disponible */
-    overflow: hidden; /* Esconde cualquier imagen que quede fuera del contenedor */
+    width: 100%; 
+    overflow: hidden; 
 }
 
 .image-wrapper {
     display: flex;
-    width: max-content; /* Hace que el contenedor de las imágenes se ajuste a su contenido */
-    animation: slideImages 12s linear infinite; /* Llama la animación para mover las imágenes */
+    width: max-content; 
+    animation: slideImages 12s linear infinite;
 }
 
 .main-image {
-    width: 20%; /* Establece que cada imagen ocupe un 20% del ancho */
-    height: auto; /* Mantiene la relación de aspecto */
+    width: 20%; 
+    height: auto; 
     border-radius: 15px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
-/* Animación para el movimiento circular */
 @keyframes slideImages {
     0% {
         transform: translateX(0);
@@ -58,42 +57,40 @@
         transform: translateX(-300%);
     }
     100% {
-        transform: translateX(-400%); /* Mueve el contenedor más allá de las 4 imágenes */
+        transform: translateX(-400%); 
     }
 }
 
-/* Sección de información */
 .info {
-    width: 70%; /* Ocupa el 70% del contenedor */
-    background-color: #dcf1d9; /* Fondo verde claro */
+    width: 70%; 
+    background-color: #dcf1d9; 
     padding: 25px;
-    border-radius: 20px; /* Bordes más redondeados */
-    color: #333333; /* Texto en gris oscuro */
+    border-radius: 20px; 
+    color: #333333; 
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-    z-index: 1;
-    text-align: left; /* Alinea el texto a la izquierda */
-    overflow-y: auto; /* Permite el desplazamiento si el texto es largo */
-    line-height: 1.6; /* Mejora la legibilidad */
-    font-size: 16px; /* Tamaño de fuente adecuado */
-    background-image: linear-gradient(135deg, #e6fbe3, #dcf1d9); /* Degradado sutil */
+    text-align: left; 
+    overflow-y: auto; 
+    line-height: 1.6; 
+    font-size: 16px; 
+    background-image: linear-gradient(135deg, #e6fbe3, #dcf1d9); 
 }
 
 .info h2 {
     font-family: 'Arial', sans-serif;
     font-weight: bold;
-    color: #2a9235; /* Verde más oscuro para el título */
-    margin-bottom: 15px; /* Espacio abajo del título */
-    font-size: 24px; /* Tamaño grande para el título */
+    color: #2a9235; 
+    margin-bottom: 15px; 
+    font-size: 24px; 
 }
 
 .info p {
     font-family: 'Arial', sans-serif;
     font-weight: normal;
-    color: #333333; /* Gris oscuro para el texto */
+    color: #333333; 
 }
 
 .info p.b {
-    font-size: 16px; /* Tamaño de texto adecuado */
+    font-size: 16px; 
     margin-bottom: 10px;
 }
 
@@ -111,20 +108,18 @@
 }
 
 .info ul li::before {
-    content: "•"; /* Usa un punto para las listas */
-    color: #4caf50; /* Verde para los puntos */
+    content: "•"; 
+    color: #4caf50; 
     margin-right: 8px;
 }
 
-/* Panel para compartir enlaces */
 .share-panel {
-    width: 25%; /* Ocupa el 25% del contenedor */
-    background-color: #ffffff; /* Fondo blanco para contraste */
+    width: 25%; 
+    background-color: #ffffff; 
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    position: sticky;
-    top: 20px; /* Mantiene el panel en la parte superior */
+    top: 20px; 
     height: fit-content;
 }
 
@@ -164,17 +159,17 @@
 h2 {
     font-family: 'Arial', sans-serif;
     font-weight: bold;
-    color: #333333; /* Texto en gris oscuro */
+    color: #333333;
 }
 
 .a {
     font-family: 'Arial', sans-serif;
     font-weight: normal;
-    color: #e6fbe3; /* Gris claro para texto secundario */
+    color: #e6fbe3;
 }
 
 .b {
     font-family: 'Arial', sans-serif;
     font-weight: normal;
-    color: #333333; /* Gris claro para texto secundario */
+    color: #333333; 
 }

@@ -75,3 +75,8 @@
         width: 100%; 
     }
 }
+
+header.hero {
+    position: relative;
+    z-index: 10; 
+  }

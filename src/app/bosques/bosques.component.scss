@@ -23,7 +23,6 @@
     color: #fff;
 }
 
-/* Estilos para la sección de imagen y contenido */
 .image-info {
     display: flex;
     justify-content: space-between;
@@ -34,7 +33,6 @@
     display: flex;
     flex-direction: column;
     width: 30%;
-    position: relative;
 }
 
 .main-image {
@@ -44,7 +42,7 @@
 }
 
 .info {
-    background-color: #dcf1d9; /* Fondo verde claro */
+    background-color: #dcf1d9; 
     padding: 25px;
     width: 65%;
     border-radius: 20px;
@@ -109,7 +107,6 @@
     text-decoration: underline;
 }
 
-/* Ajustes para pantallas pequeñas */
 @media (max-width: 768px) {
     .image-info {
         flex-direction: column;
