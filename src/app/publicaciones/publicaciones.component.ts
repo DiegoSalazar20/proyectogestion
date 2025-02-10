@@ -80,7 +80,7 @@ export class PublicacionesComponent implements OnInit {
   
     this.http.put(apiUrl, {}).subscribe({
       next: () => {
-        pub.activo = !pub.activo; // Cambiar el estado en la interfaz después de una actualización exitosa
+        pub.activo = !pub.activo; 
       },
       error: (err) => {
         console.error('Error al cambiar estado de la publicación:', err);
