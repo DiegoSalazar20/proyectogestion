@@ -144,7 +144,10 @@ export class PublicacionesComponent implements OnInit {
               this.imagenSeleccionada = null;
               this.cdr.detectChanges();
 
-              this.publicaciones.unshift(nuevaPub);  
+              this.publicaciones.unshift(nuevaPub);
+              
+              this.publicaciones=[];
+              this.obtenerPublicaciones();
             }
           },
           error: (err) => {
