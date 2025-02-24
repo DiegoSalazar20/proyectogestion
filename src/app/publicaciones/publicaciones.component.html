@@ -30,8 +30,6 @@
               </button>
 
               
-
-              <!-- Botón de eliminar con ícono (solo si el usuario actual es el dueño de la publicación) -->
               <button *ngIf="pub.idUsuario == idUsuarioActual" class="btn-eliminar" (click)="confirmarEliminar(pub)">
                 <i class="fas fa-trash-alt"></i> 
               </button>
@@ -106,5 +104,26 @@
     <p>¿Está seguro que quiere eliminar este comentario?</p>
     <button class="btn-eliminarConfig" (click)="eliminarComentario()">Sí, eliminar</button>
     <button (click)="cancelarEliminarComentario()">Cancelar</button>
+  </div>
+</div>
+
+<div *ngIf="mostrarModalError" class="modal-overlay">
+  <div class="modal-content">
+    <p>Debe iniciar sesión para poder hacer esto</p>
+    <button (click)="cerrarError()">Aceptar</button>
+  </div>
+</div>
+
+<div *ngIf="mostrarModalErrorTexto" class="modal-overlay">
+  <div class="modal-content">
+    <p>El texto no puede estar vacío.</p>
+    <button (click)="cerrarErrorTexto()">Aceptar</button>
+  </div>
+</div>
+
+<div *ngIf="mostrarExitoEstado" class="modal-overlay">
+  <div class="modal-content">
+    <p>El estado de la publicación se actualizó exitosamente.</p>
+    <button (click)="cerrarExito()">Aceptar</button>
   </div>
 </div>
