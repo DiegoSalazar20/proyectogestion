@@ -29,6 +29,7 @@ export class PublicacionesComponent implements OnInit {
   mostrarModalError: boolean = false;
   mostrarModalErrorTexto: boolean =false;
   mostrarExitoEstado:boolean =false;
+  errorPublicaciones:boolean=false;
 
   modalVisible = false;
   respuestasActuales: any[] = [];
@@ -70,7 +71,7 @@ export class PublicacionesComponent implements OnInit {
         });
       },
       error: (err) => {
-        console.error('Error obteniendo publicaciones:', err);
+        this.errorPublicaciones=true;
       }
     });
   }
