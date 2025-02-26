@@ -60,7 +60,6 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Estilos de publicaciones */
 .publicaciones {
   margin-top: 0px;
 
@@ -332,9 +331,6 @@ li {
   flex-grow: 1;
 }
 
-
-
-/* Estilos para el modal */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -359,7 +355,6 @@ li {
   display: flex;
   flex-direction: column;
   max-height: 90vh;
-  /* Altura máxima del modal */
 }
 
 .close-button {
@@ -386,6 +381,15 @@ li {
   font-style: italic;
   padding: 20px;
   background-color: #f9f9f9;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.mensaje-no-publicaciones {
+  text-align: center;
+  color: #666;
+  font-style: italic;
+  padding: 20px;
   border-radius: 5px;
   margin-top: 10px;
 }
