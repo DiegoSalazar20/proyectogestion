@@ -87,13 +87,12 @@
   align-items: center;
   width: 100%;
   max-width: 800px;
-  min-height: 560px;
   padding: 20px;
   border-radius: 15px;
   box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
   background: rgb(203, 237, 209);
   backdrop-filter: blur(10px);
-  overflow: hidden;
+  overflow: visible;
   border: 2px solid #94c973;
   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
   border: 3px solid #94c973;
@@ -195,7 +194,6 @@
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   width: 100%;
   max-width: 800px;
-  max-height: 500px;
   margin: 0 auto;
 }
 
@@ -392,15 +390,6 @@ li {
   margin-top: 10px;
 }
 
-.mensaje-no-publicaciones{
-  text-align: center;
-  color: #666;
-  font-style: italic;
-  padding: 20px;
-  border-radius: 5px;
-  margin-top: 10px;
-}
-
 .respuesta-input {
   display: flex;
   gap: 10px;
@@ -462,6 +451,7 @@ li {
 }
 
 
+/* Botón de eliminar con ícono */
 .btn-eliminarComent {
   background-color: #f85664;
   color: white;
