@@ -31,7 +31,6 @@
 
               
 
-              <!-- Botón de eliminar con ícono (solo si el usuario actual es el dueño de la publicación) -->
               <button *ngIf="pub.idUsuario == idUsuarioActual" class="btn-eliminar" (click)="confirmarEliminar(pub)">
                 <i class="fas fa-trash-alt"></i> 
               </button>
