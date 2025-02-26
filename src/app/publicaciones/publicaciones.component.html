@@ -7,37 +7,43 @@
       <section class="publicaciones">
         <h2>Publicaciones recientes</h2>
         <div class="lista-publicaciones">
-          <div *ngFor="let pub of publicaciones" class="card" [ngClass]="{'sin-imagen': pub.imagen === '', 'card': pub.imagen !== ''}">
-
-            <img *ngIf="pub.imagen !== ''" [src]="pub.imagen" alt="Imagen de la publicación">
-
-
-            <div class="contenido">
-              <p>{{ pub.texto }}</p>
-              <span class="fecha">{{ pub.fecha | date:'short' }}</span>
-              <span class="respuesta-fecha">Publicado por: {{ pub.nombreUsuario }}</span>
-              <br>
-              
-              <div *ngIf="idRolActual == 2" class="toggle-container">
-                <label class="switch">
-                  <input type="checkbox" [checked]="pub.activo" (change)="togglePublicacion(pub)">
-                  <span class="slider round"></span>
-                </label>
-              </div>
-              
-              <button class="btn-responder" (click)="abrirModal(pub.idPublicacion)">
-                <i class="fas fa-comments"></i>
-              </button>
-
-              
-              <button *ngIf="pub.idUsuario == idUsuarioActual" class="btn-eliminar" (click)="confirmarEliminar(pub)">
-                <i class="fas fa-trash-alt"></i> 
-              </button>
-            </div>
+          
+          <div *ngIf="errorPublicaciones; else verPublicaciones">
+            <p class="mensaje-no-publicaciones">Ha ocurrido un error al cargar las publicaciones</p>
           </div>
+        
+          <ng-template #verPublicaciones>
+            <div *ngIf="publicaciones.length > 0; else noPublicaciones">
+              <div *ngFor="let pub of publicaciones" class="card" [ngClass]="{'sin-imagen': pub.imagen === '', 'card': pub.imagen !== ''}">
+                <img *ngIf="pub.imagen !== ''" [src]="pub.imagen" alt="Imagen de la publicación">
+                <div class="contenido">
+                  <p>{{ pub.texto }}</p>
+                  <span class="fecha">{{ pub.fecha | date:'short' }}</span>
+                  <span class="respuesta-fecha">Publicado por: {{ pub.nombreUsuario }}</span>
+                  <br>
+                  <div *ngIf="idRolActual == 2" class="toggle-container">
+                    <label class="switch">
+                      <input type="checkbox" [checked]="pub.activo" (change)="togglePublicacion(pub)">
+                      <span class="slider round"></span>
+                    </label>
+                  </div>
+                  <button class="btn-responder" (click)="abrirModal(pub.idPublicacion)">
+                    <i class="fas fa-comments"></i>
+                  </button>
+                  <button *ngIf="pub.idUsuario == idUsuarioActual" class="btn-eliminar" (click)="confirmarEliminar(pub)">
+                    <i class="fas fa-trash-alt"></i> 
+                  </button>
+                </div>
+              </div>
+            </div>
+            <ng-template #noPublicaciones>
+              <p class="mensaje-no-publicaciones">No hay publicaciones recientes.</p>
+            </ng-template>
+          </ng-template>
         </div>
       </section>
     </div>
+    
 
     <div class="image-container">
       <div class="crear-publicacion">
@@ -56,7 +62,6 @@
     <button class="close-button" (click)="cerrarModal()">&times;</button>
     <h2>Respuestas</h2>
 
-    <!-- Contenedor con scroll para las respuestas -->
     <div class="respuestas-container">
       <ul *ngIf="respuestasActuales.length > 0; else noRespuestas">
         <li *ngFor="let resp of respuestasActuales" class="respuesta">
