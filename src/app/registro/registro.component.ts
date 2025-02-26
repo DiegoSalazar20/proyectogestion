@@ -28,6 +28,18 @@ export class RegistroComponent {
 
   onSubmit() {
     this.mensajeError=null;
+
+    if(!this.validarCorreo(this.usuario.correo)){
+      this.mensajeError='El formato del correo es inválido';
+      return;
+    }
+
+    if(!this.validarContrasenia(this.usuario.contrasenia)){
+      this.mensajeError='La contraseña debe tener mínimo 8 caractéres';
+      return;
+    }
+
+
     if (this.usuario.nombre && this.usuario.apellido && this.usuario.correo && this.usuario.contrasenia) {
       this.registrarUsuario(this.usuario).subscribe(
         response => {
@@ -39,14 +51,23 @@ export class RegistroComponent {
           }
         },
         error => {
-          this.mensajeError = 'Ocurrió un error inesperado. Inténtalo de nuevo.';
+          this.mensajeError = 'Ocurrió un error en el registro, inténtelo de nuevo más tarde.';
         }
       );
     } else {
-      this.mensajeError = 'Quedan campos vacíos';
+      this.mensajeError = 'No pueden quedar campos vacíos';
     }
   }
   
+
+  validarCorreo(correo: string){
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(correo);
+  }
+
+  validarContrasenia(contrasenia: string){
+    return contrasenia.length>=8
+  }
 
   registrarUsuario(usuario: any): Observable<any> {
     const url = 'https://localhost:7004/api/Cliente/Registrar';
