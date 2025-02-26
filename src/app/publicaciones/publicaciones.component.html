@@ -43,7 +43,6 @@
         </div>
       </section>
     </div>
-    
 
     <div class="image-container">
       <div class="crear-publicacion">
@@ -62,6 +61,7 @@
     <button class="close-button" (click)="cerrarModal()">&times;</button>
     <h2>Respuestas</h2>
 
+    <!-- Contenedor con scroll para las respuestas -->
     <div class="respuestas-container">
       <ul *ngIf="respuestasActuales.length > 0; else noRespuestas">
         <li *ngFor="let resp of respuestasActuales" class="respuesta">
@@ -109,26 +109,5 @@
     <p>¿Está seguro que quiere eliminar este comentario?</p>
     <button class="btn-eliminarConfig" (click)="eliminarComentario()">Sí, eliminar</button>
     <button (click)="cancelarEliminarComentario()">Cancelar</button>
-  </div>
-</div>
-
-<div *ngIf="mostrarModalError" class="modal-overlay">
-  <div class="modal-content">
-    <p>Debe iniciar sesión para poder hacer esto</p>
-    <button (click)="cerrarError()">Aceptar</button>
-  </div>
-</div>
-
-<div *ngIf="mostrarModalErrorTexto" class="modal-overlay">
-  <div class="modal-content">
-    <p>El texto no puede estar vacío.</p>
-    <button (click)="cerrarErrorTexto()">Aceptar</button>
-  </div>
-</div>
-
-<div *ngIf="mostrarExitoEstado" class="modal-overlay">
-  <div class="modal-content">
-    <p>El estado de la publicación se actualizó exitosamente.</p>
-    <button (click)="cerrarExito()">Aceptar</button>
   </div>
 </div>
