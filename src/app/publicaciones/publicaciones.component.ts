@@ -26,6 +26,10 @@ export class PublicacionesComponent implements OnInit {
 
   mostrarModal: boolean = false;
   mostrarModalComentario: boolean = false;
+  mostrarModalError: boolean = false;
+  mostrarModalErrorTexto: boolean =false;
+  mostrarExitoEstado:boolean =false;
+  errorPublicaciones:boolean=false;
 
   modalVisible = false;
   respuestasActuales: any[] = [];
@@ -67,7 +71,7 @@ export class PublicacionesComponent implements OnInit {
         });
       },
       error: (err) => {
-        console.error('Error obteniendo publicaciones:', err);
+        this.errorPublicaciones=true;
       }
     });
   }
@@ -81,6 +85,7 @@ export class PublicacionesComponent implements OnInit {
     this.http.put(apiUrl, {}).subscribe({
       next: () => {
         pub.activo = !pub.activo; 
+        this.mostrarExito();
       },
       error: (err) => {
         console.error('Error al cambiar estado de la publicación:', err);
@@ -98,11 +103,17 @@ export class PublicacionesComponent implements OnInit {
 
   publicar() {
     if (!this.nuevaPublicacion.texto.trim()) {
-      alert('El texto de la publicación no puede estar vacío.');
+      this.mostrarErrorTexto();
       return;
     }
     
     const idUsuario = Number(this.idUsuarioActual);
+
+    if(idUsuario==0){
+      this.mostrarError();
+      return;
+    }
+
 
     if (this.imagenSeleccionada) {
       const formData = new FormData();
@@ -195,10 +206,15 @@ export class PublicacionesComponent implements OnInit {
 
   enviarRespuesta() {
     if (!this.nuevaRespuesta.texto.trim()) {
-      alert('La respuesta no puede estar vacía.');
+      this.mostrarErrorTexto();
       return;
     }
     const idUsuario = Number(this.idUsuarioActual);
+
+    if(idUsuario==0){
+      this.mostrarError();
+      return;
+    }
 
     const nuevaResp = {
       idRespuesta: 0, 
@@ -251,6 +267,30 @@ export class PublicacionesComponent implements OnInit {
   confirmarEliminarComentario(comentario: any): void {
     this.comentarioAEliminar = comentario;
     this.mostrarModalComentario = true;
+  }
+
+  mostrarError(): void {
+    this.mostrarModalError = true;
+  }
+
+  mostrarErrorTexto(): void {
+    this.mostrarModalErrorTexto = true;
+  }
+
+  mostrarExito(): void {
+    this.mostrarExitoEstado=true;
+  }
+
+  cerrarExito(): void {
+    this.mostrarExitoEstado=false;
+  }
+
+  cerrarError(): void {
+    this.mostrarModalError = false;
+  }
+
+  cerrarErrorTexto(): void {
+    this.mostrarModalErrorTexto = false;
   }
 
   cancelarEliminarComentario(): void {
